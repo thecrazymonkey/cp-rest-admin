@@ -5,20 +5,20 @@
     method: GET
     validate_certs: false
     force_basic_auth: true
-    url_username: "{{mds_user}}"
-    url_password: "{{mds_user_password}}"
+    headers:
+      Authorization: "{{ authorization_header }}"
     body_format: json
   register: clusters_list
-  check_mode: no
+  check_mode: false
 
 - name: Get List Of Scopes
-  set_fact: 
+  set_fact:
     scopes_list: '{{ scopes_list | d([]) +  [item.clusterName] }}'
   loop: "{{ clusters_list.json }}"
 
 - debug:
-    msg="{{scopes_list}}"
-    verbosity=3
+    msg: "{{scopes_list}}"
+    verbosity: 3
 
 - name: Failure if no scopes found
   fail:

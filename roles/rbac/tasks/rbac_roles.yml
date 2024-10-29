@@ -7,16 +7,16 @@
     method: GET
     validate_certs: false
     force_basic_auth: true
-    force: yes
-    url_username: "{{mds_user}}"
-    url_password: "{{mds_user_password}}"
+    force: true
+    headers:
+      Authorization: "{{ authorization_header }}"
     body_format: json
   register: roles_list
-  check_mode: no
+  check_mode: false
 
 - debug:
-    msg="{{roles_list.json}}"
-    verbosity=3
+    msg: "{{roles_list.json}}"
+    verbosity: 3
 
 - name: Cache Roles List
   set_fact:

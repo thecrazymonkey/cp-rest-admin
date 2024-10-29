@@ -5,13 +5,15 @@
     method: "{{http_method}}"
     validate_certs: false
     force_basic_auth: true
-    url_username: "{{mds_user}}"
-    url_password: "{{mds_user_password}}"
+    headers:
+      Authorization: "{{ authorization_header }}"
     body_format: json
     body: "{ \"clusterName\": \"{{item.clusterName}}\" }"
     status_code: 204
   loop: "{{ rbac_list }}"
-  when: item.role | regex_search("^\w+Admin$|^Operator$") != none 
+  register: result
+  changed_when: result.status == 204
+  when: item.role | regex_search("^\w+Admin$|^Operator$") != none
 
 - name: Manage Rolebindings For Principal, Scope and Set of resources
   uri:
@@ -19,10 +21,12 @@
     method: "{{http_method}}"
     validate_certs: false
     force_basic_auth: true
-    url_username: "{{mds_user}}"
-    url_password: "{{mds_user_password}}"
+    headers:
+      Authorization: "{{ authorization_header }}"
     body_format: json
     status_code: 204
     body: "{ \"scope\": { \"clusterName\": \"{{item.clusterName}}\" }, \"resourcePatterns\": {{item.resources}} }"
   loop: "{{ rbac_list }}"
+  register: result
+  changed_when: result.status == 204
   when: item.role | regex_search("^\w+Admin$|^Operator$") == none

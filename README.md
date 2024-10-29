@@ -32,7 +32,13 @@ The execution of the playbooks after checking the execution plan
 
 Notable variables in the inventory (refer to the sample file)    
 
-# REST API connectivity for topics management
+# OAUTH setup for management - will replace the Basic Auth setup with Access token use
+    oauth_enabled: true
+    oauth_server_uri: https://oauth-server.com/token
+    oauth_client_id: client-id
+    oauth_client_secret: client-secret
+
+# REST API connectivity for topics management - for Basic Auth
     rest_server_url: https://kafka1.confluent.io:8090
     rest_user: user
     rest_user_password: user-secret
