@@ -11,3 +11,4 @@ proxy_env: {}
 acl_delete_enabled: true
 url_cluster_prefix: "/kafka"
 authorization_header: ""
+oauth_enabled: false
