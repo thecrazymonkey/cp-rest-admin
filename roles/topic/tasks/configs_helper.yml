@@ -10,10 +10,11 @@
 
     - ansible.builtin.debug:
         msg: "configs in>{{ configs_in }}"
+        verbosity: 3
     - ansible.builtin.debug:
         msg: "configs _dump>{{ configs_dump }}"
-    - ansible.builtin.debug:
-        msg: "configs configs_to_reconfigure>{{ configs_to_reconfigure }}"
+        verbosity: 3
+
     # handle deletes first
     - ansible.builtin.set_fact:
         configs_to_delete: "{{ configs_to_delete + [{'name': item.0, 'operation': 'DELETE'}] }}"
@@ -27,10 +28,10 @@
 
     - ansible.builtin.debug:
         msg: "Config delete>{{ configs_to_delete }}"
-        verbosity: 2
+        verbosity: 3
     - ansible.builtin.debug:
         msg: "Config to reconfigure>{{ configs_to_reconfigure }}"
-        verbosity: 2
+        verbosity: 3
     - ansible.builtin.set_fact:
         topics_to_reconfigure_configs: "{{topics_to_reconfigure_configs + [topic_in | combine({ 'configs' : (configs_to_delete + configs_to_reconfigure)} )]}}"
       when: configs_to_delete|length >0 or configs_to_reconfigure|length>0
