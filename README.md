@@ -19,7 +19,7 @@ Use Cases Supported:
    backup schema and restore schemas to a new cluser (after performing the initial dump of the current state)
    Supports all format types AVRO, PROTOBUF & JSON; Different subject scopes @topic level, @record level @ topic record level
     - Authentication using Basic Auth      
-
+ 
 All playbooks support dumping the initial state to a file by enabling the following variables (and their alternatives for quota and rbac management):
     topic_dump_file: true
     topic_dump_destination: /tmp/topic_dump_out.yml    
