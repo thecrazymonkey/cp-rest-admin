@@ -3,7 +3,10 @@
   uri:
     url: "{{rest_server_url}}{{url_cluster_prefix}}/v3/clusters/{{ cluster_id }}/acls"
     method: "{{ http_method }}"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     force: true
     status_code: "{{ http_status_code }}"
@@ -26,7 +29,10 @@
           &resource_type={{ item.resource_type }}&pattern_type={{ item.pattern_type }}&principal={{ item.principal }}
           &host={{ item.host }}&operation={{ item.operation }}&permission={{ item.permission }}"
     method: "{{ http_method }}"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     force: true
     status_code: "{{ http_status_code }}"

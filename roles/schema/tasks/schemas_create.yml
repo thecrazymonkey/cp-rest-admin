@@ -5,7 +5,10 @@
       uri:
         url: "{{ curl_config_api_url|trim }}/{{ itemin.topic_name }}-value"
         method: "PUT"
-        validate_certs: false
+        validate_certs: true
+        client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+        client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+        ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
         force_basic_auth: true
         headers:
           Authorization: "{{ authorization_header }}"
@@ -23,7 +26,10 @@
       uri:
         url: "{{ curl_config_api_url|trim }}/{{ itemin.topic_name  }}-key"
         method: "PUT"
-        validate_certs: false
+        validate_certs: true
+        client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+        client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+        ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
         force_basic_auth: true
         headers:
           Authorization: "{{ authorization_header }}"
@@ -92,7 +98,10 @@
           uri:
             url: "{{ curl_subjects_api_url|trim }}/{{ itemin.topic_name  }}-value/versions"
             method: "POST"
-            validate_certs: false
+            validate_certs: true
+            client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+            client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+            ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
             force_basic_auth: true
             headers:
               Authorization: "{{ authorization_header }}"
@@ -155,7 +164,10 @@
           uri:
             url: "{{ curl_subjects_api_url|trim }}/{{ itemin.topic_name  }}-key/versions"
             method: "POST"
-            validate_certs: false
+            validate_certs: true
+            client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+            client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+            ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
             force_basic_auth: true
             headers:
               Authorization: "{{ authorization_header }}"
@@ -178,7 +190,10 @@
       uri:
         url: "{{ curl_config_api_url|trim }}/{{ item.topic_name + '-' + item.record_name }}-value"
         method: "PUT"
-        validate_certs: false
+        validate_certs: true
+        client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+        client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+        ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
         force_basic_auth: true
         url_username: "{{ sr_user }}"
         url_password: "{{ sr_user_password }}"
@@ -198,7 +213,10 @@
       uri:
         url: "{{ curl_config_api_url|trim }}/{{ item.topic_name + '-' + item.record_name  }}-key"
         method: "PUT"
-        validate_certs: false
+        validate_certs: true
+        client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+        client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+        ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
         force_basic_auth: true
         headers:
           Authorization: "{{ authorization_header }}"
@@ -265,7 +283,10 @@
           uri:
             url: "{{ curl_subjects_api_url|trim }}/{{ item.topic_name + '-' + item.record_name  }}-value/versions"
             method: "POST"
-            validate_certs: false
+            validate_certs: true
+            client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+            client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+            ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
             force_basic_auth: true
             headers:
               Authorization: "{{ authorization_header }}"
@@ -328,7 +349,10 @@
           uri:
             url: "{{ curl_subjects_api_url|trim }}/{{ item.topic_name + '-' + item.record_name  }}-key/versions"
             method: "POST"
-            validate_certs: false
+            validate_certs: true
+            client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+            client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+            ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
             force_basic_auth: true
             headers:
               Authorization: "{{ authorization_header }}"
@@ -351,7 +375,10 @@
       uri:
         url: "{{ curl_config_api_url|trim }}/{{ item.record_name }}"
         method: "PUT"
-        validate_certs: false
+        validate_certs: true
+        client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+        client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+        ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
         force_basic_auth: true
         headers:
           Authorization: "{{ authorization_header }}"
@@ -412,7 +439,10 @@
           uri:
             url: "{{ curl_subjects_api_url|trim }}/{{ item.record_name  }}/versions"
             method: "POST"
-            validate_certs: false
+            validate_certs: true
+            client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+            client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+            ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
             force_basic_auth: true
             headers:
               Authorization: "{{ authorization_header }}"

@@ -3,7 +3,10 @@
   uri:
     url: "{{mds_server_url}}/security/1.0/acls"
     method: "{{ http_method }}"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     force: true
     status_code: "{{ http_status_code }}"
@@ -26,7 +29,10 @@
   uri:
     url: "{{mds_server_url}}/security/1.0/acls"
     method: "{{ http_method }}"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     force: true
     status_code: "{{ http_status_code }}"

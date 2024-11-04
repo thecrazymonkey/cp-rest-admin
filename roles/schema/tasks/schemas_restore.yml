@@ -3,7 +3,10 @@
   uri:
     url: "{{ curl_mode_api_url }}"
     method: "PUT"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     headers:
       Authorization: "{{ authorization_header }}"
@@ -60,7 +63,10 @@
   uri:
     url: "{{ sr_server_url }}/subjects/{{item.subject}}/versions"
     method: "POST"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     headers:
       Authorization: "{{ authorization_header }}"
@@ -77,7 +83,10 @@
   uri:
     url: "{{ curl_mode_api_url }}"
     method: "PUT"
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
     headers:
       Authorization: "{{ authorization_header }}"

@@ -438,3 +438,20 @@ Restore  Schemas in an new cluster setting the restore_only=truevariable to true
 ansible-playbook --private-key ${PRIV_KEY_FILE} -i mrchostsrbacdata.yml --extra-vars "@./schema_dump_out.yml"  --extra-vars "restore_only=true" schemas_management.yml -vvvv
 
 
+###### Use of TLS
+
+Set the following variables in the playbook:
+
+**client_tls_cert** - path to the client certificate
+
+**client_tls_key**  - path to the client private key
+
+**ca_tls_path**     - path to the CA certificate
+
+When used with OAUTH the following setting can be used to enable TLS authentication with IDP:
+
+**idp_tls_cert** - path to the IDP certificate
+
+**idp_tls_key**  - path to the IDP private key
+
+**idp_ca_tls_path**     - path to the IDP CA certificate
