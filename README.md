@@ -19,7 +19,7 @@ Use Cases Supported:
    backup schema and restore schemas to a new cluser (after performing the initial dump of the current state)
    Supports all format types AVRO, PROTOBUF & JSON; Different subject scopes @topic level, @record level @ topic record level
     - Authentication using Basic Auth      
-
+ 
 All playbooks support dumping the initial state to a file by enabling the following variables (and their alternatives for quota and rbac management):
     topic_dump_file: true
     topic_dump_destination: /tmp/topic_dump_out.yml    
@@ -32,7 +32,13 @@ The execution of the playbooks after checking the execution plan
 
 Notable variables in the inventory (refer to the sample file)    
 
-# REST API connectivity for topics management
+# OAUTH setup for management - will replace the Basic Auth setup with Access token use
+    oauth_enabled: true
+    oauth_server_uri: https://oauth-server.com/token
+    oauth_client_id: client-id
+    oauth_client_secret: client-secret
+
+# REST API connectivity for topics management - for Basic Auth
     rest_server_url: https://kafka1.confluent.io:8090
     rest_user: user
     rest_user_password: user-secret
@@ -432,3 +438,20 @@ Restore  Schemas in an new cluster setting the restore_only=truevariable to true
 ansible-playbook --private-key ${PRIV_KEY_FILE} -i mrchostsrbacdata.yml --extra-vars "@./schema_dump_out.yml"  --extra-vars "restore_only=true" schemas_management.yml -vvvv
 
 
+###### Use of TLS
+
+Set the following variables in the playbook:
+
+**client_tls_cert** - path to the client certificate
+
+**client_tls_key**  - path to the client private key
+
+**ca_tls_path**     - path to the CA certificate
+
+When used with OAUTH the following setting can be used to enable TLS authentication with IDP:
+
+**idp_tls_cert** - path to the IDP certificate
+
+**idp_tls_key**  - path to the IDP private key
+
+**idp_ca_tls_path**     - path to the IDP CA certificate

@@ -1,6 +1,12 @@
 all:
   vars:
     ansible_become: false
+    # oauth setup for all APIs
+    oauth_enabled: false
+    oauth_token_uri: https://oauthserver.com/oauth2/default/v1/token
+    oauth_client_id: client-id
+    oauth_client_secret: client-secret
+
     # configure connectivity for topics management
     rest_server_url: https://kafka1.confluent.io:8090
     rest_user: user
@@ -68,6 +74,9 @@ all:
             value: "2"
           - name: retention.ms
             value: "60480000"
+          - name: confluent.placement.constraints
+            value: '{"version":1,"replicas":[{"count":2}]}'
+
 # rbac section
 # connectivity for the MDS connection - the user must be SystemAdmin 
     mds_user: mds

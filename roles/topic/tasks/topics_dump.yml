@@ -4,21 +4,25 @@
   uri:
     url: "{{rest_server_url}}/kafka/v3/clusters/{{cluster_id}}/topics"
     method: GET
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
-    url_username: "{{rest_user}}"
-    url_password: "{{rest_user_password}}"
+    headers:
+      Authorization: "{{ authorization_header }}"
     body_format: json
   register: topics_list_temp
-  check_mode: no
+  check_mode: false
 
 - name: Set Only Essential Fields and Non-protected Topics
 # cater for 6.2 -> 7.0 API change
-  set_fact: 
-     topics_list: '{{ topics_list | default([]) +  [{ "topic_name": item.topic_name, "replication_factor" : item.replication_factor, "partitions_count" : item.partitions_count }] }}'
-     partitions_defined: true
+  set_fact:
+    topics_list: '{{ topics_list | default([]) +
+      [{ "topic_name": item.topic_name, "replication_factor" : item.replication_factor, "partitions_count" : item.partitions_count }] }}'
+    partitions_defined: true
   loop: "{{ topics_list_temp.json.data | d([]) }}"
-  when: (test_whitelist|length > 0 and test_protected|length == 0) and item.partitions_count is defined 
+  when: (test_whitelist|length > 0 and test_protected|length == 0) and item.partitions_count is defined
   vars:
     test_whitelist: "{{ item.topic_name|regex_search(topic_whitelist) }}"
     test_protected: "{{ item.topic_name|regex_search(topic_protected) }}"
@@ -26,11 +30,12 @@
 
 - name: Set Only Essential Fields and Non-protected Topics
 # cater for 6.2 -> 7.0 API change
-  set_fact: 
-     topics_list: '{{ topics_list | default([]) +  [{ "topic_name": item.topic_name, "replication_factor" : item.replication_factor }] }}'
-     partitions_defined: false
+  set_fact:
+    topics_list: '{{ topics_list | default([]) +
+       [{ "topic_name": item.topic_name, "replication_factor" : item.replication_factor }] }}'
+    partitions_defined: false
   loop: "{{ topics_list_temp.json.data | d([]) }}"
-  when: (test_whitelist|length > 0 and test_protected|length == 0) and item.partitions_count is not defined 
+  when: (test_whitelist|length > 0 and test_protected|length == 0) and item.partitions_count is not defined
   vars:
     test_whitelist: "{{ item.topic_name| regex_search(topic_whitelist) }}"
     test_protected: "{{ item.topic_name| regex_search(topic_protected) }}"

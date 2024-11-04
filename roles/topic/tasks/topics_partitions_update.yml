@@ -4,13 +4,16 @@
   uri:
     url: "{{rest_server_url}}{{url_cluster_prefix}}/v3/clusters/{{cluster_id}}/topics/{{item.topic_name}}"
     method: PATCH
-    validate_certs: false
+    validate_certs: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force_basic_auth: true
-    url_username: "{{rest_user}}"
-    url_password: "{{rest_user_password}}"
+    headers:
+      Authorization: "{{ authorization_header }}"
     body_format: json
     body: "{ \"partitions_count\": {{item.partitions_count}} }"
-    status_code: [200,405]
+    status_code: [200, 405]
   register: _result
   changed_when: _result.status == 200
   loop: "{{ topics_in }}"
@@ -33,4 +36,3 @@
   changed_when: "topics_result.rc == 0"
   loop: "{{topics_in}}"
   when: _result.results[0].status == 405
-

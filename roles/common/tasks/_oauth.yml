@@ -1,0 +1,24 @@
+---
+- name: Get Access Token
+  ansible.builtin.uri:
+    url: "{{ oauth_token_uri }}"
+    method: POST
+    body_format: form-urlencoded
+    client_cert: "{{ none if idp_tls_cert is not defined else idp_tls_cert }}"
+    client_key: "{{ none if idp_tls_key is not defined else idp_tls_key }}"
+    ca_path: "{{ none if idp_ca_tls_path is not defined else idp_ca_tls_path }}"
+    body:
+      grant_type: client_credentials
+      client_id: "{{ _user }}"
+      client_secret: "{{ _user_password }}"
+    status_code: 200
+    timeout: 30
+  register: result
+  check_mode: false
+  no_log: true
+- ansible.builtin.set_fact:
+    authorization_header: "Bearer {{ result.json.access_token }}"
+
+- ansible.builtin.debug:
+    var: authorization_header
+    verbosity: 3

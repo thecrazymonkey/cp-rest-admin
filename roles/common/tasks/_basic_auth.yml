@@ -1,0 +1,2 @@
+- ansible.builtin.set_fact:
+    authorization_header: "Basic {{ (_user+':'+_user_password)|b64encode }}"
