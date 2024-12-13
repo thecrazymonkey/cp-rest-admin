@@ -15,6 +15,9 @@
     method: POST
     validate_certs: false
     force_basic_auth: true
+    client_cert: "{{ none if client_tls_cert is not defined else client_tls_cert }}"
+    client_key: "{{ none if client_tls_key is not defined else client_tls_key }}"
+    ca_path: "{{ none if ca_tls_path is not defined else ca_tls_path }}"
     force: true
     headers:
       Authorization: "{{ authorization_header }}"
