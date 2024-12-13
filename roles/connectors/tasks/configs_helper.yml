@@ -5,10 +5,11 @@
 - ansible.builtin.debug:
     msg: "connector_state>{{ connector_state }}"
     verbosity: 3
-# check the configs to delete
+
 - name: Get Delta
   ansible.builtin.set_fact:
-    result: "{{ connector_state.values()|
+    result: "{{ ['yes'] if connector_state.keys() | difference(connector_in.keys()) | length > 0
+            else connector_state.values()|
               zip(connector_state.keys()|map('extract', connector_in))|
               map('zip', ['connector_state', 'connector_in'])|
               map('map', 'reverse')|
