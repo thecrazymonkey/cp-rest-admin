@@ -320,6 +320,34 @@ this can be used to apply the rolebindings to a new cluster without deleting the
         resource_type: TOPIC
       principal: User:alice
 
+# Connectors management 
+
+    connectors_server_url: http://connect:8083
+    # for authentication
+    connectors_user:
+    connectors_user_password:
+    connectors_dump_file: true
+    connectors_dump_destination: /tmp/connectors_dump_out.yml
+    connectors:
+      - connector.class: io.confluent.kafka.connect.datagen.DatagenConnector
+        kafka.topic: stock_trades
+        key.converter: io.confluent.connect.avro.AvroConverter
+        key.converter.schema.registry.url: http://sr:8081
+        name: DatagenTest
+        quickstart: stock_trades
+        schema.registry.url: http://sr:8081
+        value.converter: io.confluent.connect.avro.AvroConverter
+        value.converter.schema.registry.url: http://sr:8081
+      - connector.class: io.confluent.kafka.connect.datagen.DatagenConnector
+        kafka.topic: purchases
+        key.converter: io.confluent.connect.avro.AvroConverter
+        key.converter.schema.registry.url: http://sr:8081
+        name: DatagenTestOrders
+        quickstart: purchases
+        schema.registry.url: http://sr:8081
+        value.converter: io.confluent.connect.avro.AvroConverter
+        value.converter.schema.registry.url: http://sr:8081
+    connectors_delete_enabled: true
 # Usage
 
 ## Common
@@ -362,6 +390,13 @@ ansible-playbook -i hosts_test.yml zacl_management.yml
 ansible-playbook -i hosts_test.yml cacl_management.yml  -vv --check
 ### Apply 
 ansible-playbook -i hosts_test.yml cacl_management.yml
+
+## Connectors
+
+### Dry-run
+ansible-playbook -i hosts_test.yml connectors_management.yml  -vv --check
+### Apply 
+ansible-playbook -i hosts_test.yml connectors_management.yml
 
 # sample desired Comprehensive Schema state configuration - can be managed in an external file
 
