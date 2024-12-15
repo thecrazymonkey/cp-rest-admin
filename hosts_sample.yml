@@ -85,87 +85,87 @@ all:
 
 # sample desired rolebindings state configuration
     rolebindings:
-    - clusterName: test-cluster
-      name: test-cluster-0
-      principal: User:connectAdmin
-      resources:
-      - name: _confluent-monitoring
-        patternType: PREFIXED
-        resourceType: Topic
-      role: DeveloperWrite
-    - clusterName: test-cluster
-      name: test-cluster-1
-      principal: User:connectAdmin
-      resources:
-      - name: operator.connect
-        patternType: LITERAL
-        resourceType: Group
-      - name: operator.connect-
-        patternType: PREFIXED
-        resourceType: Topic
-      role: ResourceOwner
-    - clusterName: test-cluster
-      name: test-cluster-2
-      principal: User:ksqlDBAdmin
-      resources:
-      - name: kafka-cluster
-        patternType: LITERAL
-        resourceType: Cluster
-      - name: operator.ksqldb_
-        patternType: PREFIXED
-        resourceType: TransactionalId
-      role: DeveloperWrite
-    - clusterName: test-cluster
-      name: test-cluster-3
-      principal: User:ksqlDBAdmin
-      resources:
-      - name: _confluent-ksql-operator.ksqldb_
-        patternType: PREFIXED
-        resourceType: Group
-      - name: _confluent-ksql-operator.ksqldb__command_topic
-        patternType: LITERAL
-        resourceType: Topic
-      - name: operator.ksqldb_ksql_processing_log
-        patternType: LITERAL
-        resourceType: Topic
-      role: ResourceOwner
-    - clusterName: test-cluster
-      name: test-cluster-4
-      principal: User:schemaregistryUser
-      resources:
-      - name: id_schemaregistry_operator
-        patternType: LITERAL
-        resourceType: Group
-      - name: _confluent-license
-        patternType: LITERAL
-        resourceType: Topic
-      - name: _schemas_schemaregistry_operator
-        patternType: LITERAL
-        resourceType: Topic
-      role: ResourceOwner
-    - clusterName: test-cluster
-      name: test-cluster-5
-      principal: User:controlcenterAdmin
-      role: SystemAdmin
-    - clusterName: test-cluster
-      name: test-cluster-6
-      principal: User:superUser
-      role: SystemAdmin
-    - name: test-cluster-7
-      clusterName: test-cluster
-      principal: User:alice
-      resources:
-      - name: test
-        patternType: PREFIXED
-        resourceType: Topic
-      # - name: test
-      #   patternType: PREFIXED
-      #   resourceType: Group
-      role: ResourceOwner
-    - name: test-cluster-8
-      clusterName: test-cluster
-      principal: User:bob
-      role: SystemAdmin
+      - clusterName: test-cluster
+        name: test-cluster-0
+        principal: User:connectAdmin
+        resources:
+          - name: _confluent-monitoring
+            patternType: PREFIXED
+            resourceType: Topic
+        role: DeveloperWrite
+      - clusterName: test-cluster
+        name: test-cluster-1
+        principal: User:connectAdmin
+        resources:
+          - name: operator.connect
+            patternType: LITERAL
+            resourceType: Group
+          - name: operator.connect-
+            patternType: PREFIXED
+            resourceType: Topic
+        role: ResourceOwner
+      - clusterName: test-cluster
+        name: test-cluster-2
+        principal: User:ksqlDBAdmin
+        resources:
+          - name: kafka-cluster
+            patternType: LITERAL
+            resourceType: Cluster
+          - name: operator.ksqldb_
+            patternType: PREFIXED
+            resourceType: TransactionalId
+        role: DeveloperWrite
+      - clusterName: test-cluster
+        name: test-cluster-3
+        principal: User:ksqlDBAdmin
+        resources:
+          - name: _confluent-ksql-operator.ksqldb_
+            patternType: PREFIXED
+            resourceType: Group
+          - name: _confluent-ksql-operator.ksqldb__command_topic
+            patternType: LITERAL
+            resourceType: Topic
+          - name: operator.ksqldb_ksql_processing_log
+            patternType: LITERAL
+            resourceType: Topic
+        role: ResourceOwner
+      - clusterName: test-cluster
+        name: test-cluster-4
+        principal: User:schemaregistryUser
+        resources:
+          - name: id_schemaregistry_operator
+            patternType: LITERAL
+            resourceType: Group
+          - name: _confluent-license
+            patternType: LITERAL
+            resourceType: Topic
+          - name: _schemas_schemaregistry_operator
+            patternType: LITERAL
+            resourceType: Topic
+        role: ResourceOwner
+      - clusterName: test-cluster
+        name: test-cluster-5
+        principal: User:controlcenterAdmin
+        role: SystemAdmin
+      - clusterName: test-cluster
+        name: test-cluster-6
+        principal: User:superUser
+        role: SystemAdmin
+      - name: test-cluster-7
+        clusterName: test-cluster
+        principal: User:alice
+        resources:
+          - name: test
+            patternType: PREFIXED
+            resourceType: Topic
+          # - name: test
+          #   patternType: PREFIXED
+          #   resourceType: Group
+        role: ResourceOwner
+      - name: test-cluster-8
+        clusterName: test-cluster
+        principal: User:bob
+        role: SystemAdmin
 # define accounts protected from management
     rbac_protected_accounts: "User:superUser"
 # regex for clusters managed with this playbook
@@ -244,84 +244,84 @@ all:
 # Zookeeper ACLs management connectivity defined above
 # sample desired ACL state structure
     zacls:
-    - patterns:
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: bobtest
-        resource_type: GROUP
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: bobtest
-        resource_type: TOPIC
-      principal: User:Bob
-    - patterns:
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        - host: '*'
-          operation: WRITE
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: test
-        resource_type: GROUP
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: test
-        resource_type: TOPIC
-      principal: User:alice
+      - patterns:
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: bobtest
+            resource_type: GROUP
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: bobtest
+            resource_type: TOPIC
+        principal: User:Bob
+      - patterns:
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+              - host: '*'
+                operation: WRITE
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: test
+            resource_type: GROUP
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: test
+            resource_type: TOPIC
+        principal: User:alice
 
-# if you want current state of Centralized ACLs dumped to a file enable the following and set the file path    
+# if you want current state of Centralized ACLs dumped to a file enable the following and set the file path
     cacl_dump_file: false
     cacl_dump_destination: /tmp/zacl_dump_out.yml
 
 # Zookeeper ACLs management connectivity defined above
 # sample desired ACL state structure
     cacls:
-    - patterns:
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: bobtest
-        resource_type: GROUP
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: bobtest
-        resource_type: TOPIC
-      principal: User:Bob
-    - patterns:
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        - host: '*'
-          operation: WRITE
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: test
-        resource_type: GROUP
-      - entries:
-        - host: '*'
-          operation: READ
-          permission: ALLOW
-        pattern_type: PREFIXED
-        resource_name: test
-        resource_type: TOPIC
-      principal: User:alice
+      - patterns:
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: bobtest
+            resource_type: GROUP
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: bobtest
+            resource_type: TOPIC
+        principal: User:Bob
+      - patterns:
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+              - host: '*'
+                operation: WRITE
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: test
+            resource_type: GROUP
+          - entries:
+              - host: '*'
+                operation: READ
+                permission: ALLOW
+            pattern_type: PREFIXED
+            resource_name: test
+            resource_type: TOPIC
+        principal: User:alice
 # connectors management
     connectors_server_url: http://connect:8083
     connectors_user:
